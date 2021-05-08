@@ -1,0 +1,15 @@
+/Temp
+/Library
+/Logs
+/obj
+/.vs
+/*.log
+/*.apk
+/Assets/Resouse/SkyBox/Textures/*.psd
+/*.csproj
+/*.sln
+/*.zip
+/ios_build
+/Assets/Plugins/IOS.meta
+/Assets/Plugins/IOS
+/testios
