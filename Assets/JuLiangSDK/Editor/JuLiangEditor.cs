@@ -10,16 +10,22 @@ namespace JuLiang
         {
             var jl = AScriptableObject.Get<JuLiangPama>();
             if (!jl)
-                jl = AssetHelper.CreateAsset<JuLiangPama>();
+                jl = AssetHelper.CreateOrGetAsset<JuLiangPama>();
             var gd = GradleHelper.Open();
-            string fs = $"manifestPlaceholders.put(\"APPLOG_SCHEME\",\"{jl.android.pama}\".toLowerCase())";
-            if (!gd.texts.Contains(fs))
+            var cfg = gd.Root.FindNode("android/defaultConfig");
+            if (cfg != null)
             {
-                var df = "defaultConfig {";
-                int idx = gd.texts.IndexOf("defaultConfig {") + df.Length;
-                gd.texts = gd.texts.Insert(idx, $"\n{fs}\n");
+                cfg.AddValue($"manifestPlaceholders.put(\"APPLOG_SCHEME\",\"{jl.android.pama}\".toLowerCase())");
                 gd.Save();
             }
+            //string fs = $"manifestPlaceholders.put(\"APPLOG_SCHEME\",\"{jl.android.pama}\".toLowerCase())";
+            //if (!gd.texts.Contains(fs))
+            //{
+            //    var df = "defaultConfig {";
+            //    int idx = gd.texts.IndexOf("defaultConfig {") + df.Length;
+            //    gd.texts = gd.texts.Insert(idx, $"\n{fs}\n");
+            //    gd.Save();
+            //}
         }
     }
 }
